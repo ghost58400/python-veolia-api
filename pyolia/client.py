@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from datetime import date
 from types import TracebackType
-from typing import Any
+from typing import Any, Dict, List, Mapping, Union
 
 import backoff
 from aiohttp import ClientSession
@@ -13,7 +13,11 @@ from pyolia.exceptions import NotAuthenticatedException, BadCredentialsException
 from pyolia.veolia_websites import VeoliaWebsite
 
 
-async def relogin(invocation: dict[str, Any]) -> None:
+CSV_DELIMITER = ";"
+CONSUMPTION_HEADER = "consommation(litre)"
+
+
+async def relogin(invocation: Mapping[str, Any]) -> None:
     await invocation["args"][0].login()
 
 
@@ -24,7 +28,7 @@ class VeoliaClient:
         self,
         username: str,
         password: str,
-        session: ClientSession = None,
+        session: ClientSession | None = None,
         website: VeoliaWebsite = VeoliaWebsite.EAU_SERVICES,
     ) -> None:
         """
@@ -70,7 +74,7 @@ class VeoliaClient:
         on_backoff=relogin,
     )
     async def get_consumption(
-        self, month: int, year: int, day: int = None
+        self, month: int, year: int, day: int | None = None
     ) -> list[int]:
         """
         If day is not provided, return the water consumption in liter for each hour for
