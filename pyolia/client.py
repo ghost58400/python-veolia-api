@@ -11,7 +11,7 @@ from aiohttp import ClientSession
 
 JSON = Union[Dict[str, Any], List[Dict[str, Any]]]
 
-DOMAIN = "https://www.eau-services.com"
+DOMAIN = "https://agence.eaudugrandlyon.com"
 LOGIN_URL = f"{DOMAIN}/default.aspx"
 DATA_URL = f"{DOMAIN}/mon-espace-suivi-personnalise.aspx?ex=1&mm={{}}/{{}}"
 DATA_URL_DAY = f"{DATA_URL}&d={{}}"
