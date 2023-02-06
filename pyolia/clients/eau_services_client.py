@@ -45,13 +45,17 @@ class EauServicesClient:
         return await self._get_daily_consumption(month, year)
 
     async def _get_daily_consumption(self, month: int, year: int) -> list[int]:
+        print('get daily veolia')
         async with self.session.get(self.data_url.format(month, year)) as response:
             if response.url.name != "mon-espace-suivi-personnalise.aspx":
                 raise NotAuthenticatedException
             data = await response.text()
 
         reader = csv.DictReader(data.splitlines(), delimiter=CSV_DELIMITER)
-        return [int(row[CONSUMPTION_HEADER]) for row in reader]
+        a = [int(row[CONSUMPTION_HEADER]) for row in reader]
+        print('veolia')
+        print(a)
+        return a
 
     async def _get_hourly_consumption(
         self, month: int, year: int, day: int
