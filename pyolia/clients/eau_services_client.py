@@ -52,10 +52,7 @@ class EauServicesClient:
             data = await response.text()
 
         reader = csv.DictReader(data.splitlines(), delimiter=CSV_DELIMITER)
-        a = [int(row[CONSUMPTION_HEADER]) for row in reader]
-        import logging
-        logging.error('veolia ' + str(a))
-        return a
+        return [int(row[CONSUMPTION_HEADER]) for row in reader]
 
     async def _get_hourly_consumption(
         self, month: int, year: int, day: int
