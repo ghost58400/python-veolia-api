@@ -52,7 +52,10 @@ class EauServicesClient:
             data = await response.text()
 
         reader = csv.DictReader(data.splitlines(), delimiter=CSV_DELIMITER)
-        return [int(row[CONSUMPTION_HEADER]) for row in reader]
+        daily_data = [int(row[CONSUMPTION_HEADER]) for row in reader]
+        while daily_data[-1] < 0:
+            daily_data = daily_data[ : -1]
+        return daily_data
 
     async def _get_hourly_consumption(
         self, month: int, year: int, day: int
