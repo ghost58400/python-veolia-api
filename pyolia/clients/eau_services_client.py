@@ -53,8 +53,8 @@ class EauServicesClient:
 
         reader = csv.DictReader(data.splitlines(), delimiter=CSV_DELIMITER)
         a = [int(row[CONSUMPTION_HEADER]) for row in reader]
-        print('veolia')
-        print(a)
+        import logging
+        logging.error('veolia ' + str(a))
         return a
 
     async def _get_hourly_consumption(
