@@ -29,7 +29,7 @@ class VeoliaClient:
         username: str,
         password: str,
         session: ClientSession | None = None,
-        website: VeoliaWebsite = VeoliaWebsite.EAU_SERVICES,
+        website: VeoliaWebsite = VeoliaWebsite.EAU_DU_GRAND_LYON,
     ) -> None:
         """
         Constructor
